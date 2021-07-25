@@ -1,0 +1,24 @@
+{
+   "Records":[
+      {
+         "EventSource":"aws:sns",
+         "EventVersion":"1.0",
+         "EventSubscriptionArn":"arn:aws:sns:ap-southeast-2:687368024180:dc-zoom-meeting-logger-topic-dev:21d0bd6e-5c84-4bcb-a11a-5715d893fdd6",
+         "Sns":{
+            "Type":"Notification",
+            "MessageId":"1a77e414-94ec-5660-b30a-bd627ee2c412",
+            "TopicArn":"arn:aws:sns:ap-southeast-2:687368024180:dc-zoom-meeting-logger-topic-dev",
+            "Subject":"Zoom Meeting Log Entry",
+            "Message":"{\"payload\": {\"account_id\": \"mQ6z7LM9R4yuzZ64Iju6rA\", \"object\": {\"uuid\": \"AMf4W4GFS9uGEjsiDZKVtA==\", \"participant\": {\"user_id\": \"16778240\", \"user_name\": \"David Hunter\", \"id\": \"AbDxB4btT82PZ0HOCA2ecg\", \"join_time\": \"2021-07-25T04:25:45Z\", \"email\": \"dhunter@digitalcreation.co.nz\"}, \"id\": \"96349068012\", \"type\": 3, \"topic\": \"Groovy Participation Group\", \"host_id\": \"AbDxB4btT82PZ0HOCA2ecg\", \"duration\": 60, \"start_time\": \"2021-07-25T04:25:46Z\", \"timezone\": \"Pacific/Auckland\"}}, \"event_ts\": 1627187149198, \"event\": \"meeting.participant_joined\"}",
+            "Timestamp":"2021-07-25T04:25:50.559Z",
+            "SignatureVersion":"1",
+            "Signature":"RXW6fIexDOx0+B6auEOIQe2iCyhYNTjxssqITxz0kJh5QWcMI5cfrSwXN7qHFL3FTlvTTgAP8fPiDUJjkpywh46oAUtEb3Ml54/yMaAkrpe9Sl8wIDU+YWtDigEwyffaTXODVh+2/ZalkNBqhGGjCHVBDROWl/+IwFxT9+KQs/hnPH9ltllZ+2Ut+vk2AoddzBLzE2ZGB8uyn4WPoea8z7uCffF22I/7RoBdAcsDEttJjyzfFN0lUNqvdqBpEHLFA0I/FEBNRcEg0ApYsba4wraMtvwIpZI0aQ4E/rGQPgWlgFUS+8jjjVm4RnAaJx8t0q6KVyM2GZNTflp3mL6ZdQ==",
+            "SigningCertUrl":"https://sns.ap-southeast-2.amazonaws.com/SimpleNotificationService-010a507c1833636cd94bdb98bd93083a.pem",
+            "UnsubscribeUrl":"https://sns.ap-southeast-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:ap-southeast-2:687368024180:dc-zoom-meeting-logger-topic-dev:21d0bd6e-5c84-4bcb-a11a-5715d893fdd6",
+            "MessageAttributes":{
+               
+            }
+         }
+      }
+   ]
+}

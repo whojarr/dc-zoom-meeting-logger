@@ -1,0 +1,11 @@
+{
+  "name": "dc-zoom-meeting-logger",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-domain-manager": "^5.1.0",
+    "serverless-python-requirements": "^5.1.1",
+    "serverless-wsgi": "^1.7.8"
+  }
+}

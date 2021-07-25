@@ -1,0 +1,24 @@
+{
+   "payload":{
+      "account_id":"mQ6z7LM9R4yuzZ64Iju6rA",
+      "object":{
+         "uuid":"cfRfxCYbRoeZJ5c+/UDghQ==",
+         "participant":{
+            "user_id":"16778240",
+            "user_name":"David Hunter",
+            "id":"AbDxB4btT82PZ0HOCA2ecg",
+            "join_time":"2021-07-25T02:36:54Z",
+            "email":"dhunter@digitalcreation.co.nz"
+         },
+         "id":"96349068012",
+         "type":3,
+         "topic":"Groovy Participation Group",
+         "host_id":"AbDxB4btT82PZ0HOCA2ecg",
+         "duration":60,
+         "start_time":"2021-07-25T02:36:54Z",
+         "timezone":"Pacific/Auckland"
+      }
+   },
+   "event_ts":1627180618291,
+   "event":"meeting.participant_joined"
+}

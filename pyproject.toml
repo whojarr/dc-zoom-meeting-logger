@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "dc-zoom-meeting-logger"
+version = "0.1.0"
+description = ""
+authors = ["David Hunter <dhunter@digitalcreation.co.nz>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+Flask = "1.1.4"
+Werkzeug = "1.0.0"
+gspread = "^3.7.0"
+oauth2client = "^4.1.3"
+
+[tool.poetry.dev-dependencies]
+boto3 = "^1.18.6"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

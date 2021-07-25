@@ -1,0 +1,18 @@
+{
+   "event":"meeting.ended",
+   "payload":{
+      "account_id":"mQ6z7LM9R4yuzZ64Iju6rA",
+      "object":{
+         "duration":60,
+         "start_time":"2021-07-25T02:36:54Z",
+         "timezone":"Pacific/Auckland",
+         "end_time":"2021-07-25T02:38:39Z",
+         "topic":"Groovy Participation Group",
+         "id":"96349068012",
+         "type":3,
+         "uuid":"cfRfxCYbRoeZJ5c+/UDghQ==",
+         "host_id":"AbDxB4btT82PZ0HOCA2ecg"
+      }
+   },
+   "event_ts":1627180719068
+}

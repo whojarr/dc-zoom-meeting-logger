@@ -1,0 +1,118 @@
+service: dc-zoom-meeting-logger
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+  - serverless-domain-manager
+  
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!venv/**'
+provider:
+  lambdaHashingVersion: 20201221
+  name: aws
+  runtime: python3.8
+  timeout: 30
+  memorySize: 128
+  stage: '${opt:stage, ''dev''}'
+  region: '${opt:region, ''ap-southeast-2''}'
+  deploymentBucket: 'dcl-lambdas'
+  tags:
+    Product: dc-minecraft
+    environment: '${self:provider.stage}'
+  environment:
+    ZOOM_VARIFICATION_TOKEN: '${ssm:/dc-zoom-meeting-logger/${self:provider.stage}/ZOOM_VARIFICATION_TOKEN}'
+    GOOGLE_AUTH_JSON: '${ssm:/dc-zoom-meeting-logger/${self:provider.stage}/GOOGLE_AUTH_JSON}'
+    GOOGLE_SHEET_NAME: ${self:custom.sheetName}
+    MEETINGS_TABLE: ${self:custom.tableName}
+    MEETINGS_SNS_TOPIC: ${self:custom.topicName}
+    MEETINGS_SNS_ARN: { "Fn::Join" : ["", ["arn:aws:sns:${self:provider.region}:", { "Ref" : "AWS::AccountId" }, ":${self:custom.topicName}" ] ]  }
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 's3:ListBucket'
+      Resource: 'arn:aws:s3:::dcl-lambdas'
+    - Effect: Allow
+      Action:
+        - 's3:PutObject'
+        - 's3:ListObjects'
+        - 's3:GetObject'
+      Resource: 'arn:aws:s3:::dcl-lambdas/dc-zoom-meeting-logger/*'
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["DCZoomMeetingLoggerDynamoDBTable", "Arn" ] }
+    - Effect: Allow
+      Action:
+        - "ssm:GetParameters"
+        - "ssm:GetParameter"
+      Resource: "arn:aws:ssm:${self:provider.region}:*:parameter/dc-zoom-meeting-logger/${self:provider.stage}/*"
+    - Effect: Allow
+      Action:
+        - 'kms:Decrypt'
+        - 'kms:Encrypt'
+        - 'kms:GenerateDataKey'
+      Resource: 'arn:aws:kms:${self:provider.region}:*'
+    - Effect: Allow
+      Action:
+        - SNS:Publish
+      Resource: { "Fn::Join" : ["", ["arn:aws:sns:${self:provider.region}:", { "Ref" : "AWS::AccountId" }, ":${self:custom.topicName}" ] ]  }
+
+functions:
+  app:
+    handler: wsgi_handler.handler
+    events:
+      - http: ANY /
+      - http: 'ANY /{proxy+}'
+  snsmsg:
+    handler: sns2xls.handler
+    events:
+      - sns:
+          arn: { "Fn::Join" : ["", ["arn:aws:sns:${self:provider.region}:", { "Ref" : "AWS::AccountId" }, ":${self:custom.topicName}" ] ]  }
+          topicName: ${self:custom.topicName}
+custom:
+  wsgi:
+    app: app.app
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: flase
+    slim: true
+  stage: ${self:provider.stage}
+  domains:
+    prod: dc-zoom-meeting-logger.pauanui.nz
+    dev: dc-zoom-meeting-logger-dev.pauanui.nz
+  customDomain:
+    basePath: ''
+    domainName: '${self:custom.domains.${self:provider.stage}}'
+    stage: '${self:provider.stage}'
+    createRoute53Record: true
+  tableName: 'dc-zoom-meeting-logger-table-${self:provider.stage}'
+  topicName: 'dc-zoom-meeting-logger-topic-${self:provider.stage}'
+  sheetName: 'dc-zoom-meeting-logger-${self:provider.stage}'
+
+resources:
+  Resources:
+    DCZoomMeetingLoggerDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: meetingId
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: meetingId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}
+    DCZoomMeetingLoggerTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: 'dc-zoom-meeting-logger ${self:provider.stage}'
+        TopicName: ${self:custom.topicName}
