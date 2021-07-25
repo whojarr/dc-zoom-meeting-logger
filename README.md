@@ -63,6 +63,9 @@ Install all the required node and python packages.
    ```
 4. update the serverless.yml domain details
 5. add the credentials required in AWS Paramter Store
+   ```sh
+   sls create_domain
+   ```
    
 6. sls deploy (to deploy to your default aws account)
    ```sh
