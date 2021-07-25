@@ -6,10 +6,6 @@ import google_sheet
 GOOGLE_SHEET_NAME = os.environ['GOOGLE_SHEET_NAME']
 
 
-def google_sheet_write_participant(meeting):
-    pass
-
-
 def event_meeting(event):
 
     if 'Records' in event:

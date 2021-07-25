@@ -18,13 +18,12 @@ provider:
   region: '${opt:region, ''ap-southeast-2''}'
   deploymentBucket: 'dcl-lambdas'
   tags:
-    Product: dc-minecraft
+    Product: dc-zoom-meeting-logger
     environment: '${self:provider.stage}'
   environment:
     ZOOM_VARIFICATION_TOKEN: '${ssm:/dc-zoom-meeting-logger/${self:provider.stage}/ZOOM_VARIFICATION_TOKEN}'
     GOOGLE_AUTH_JSON: '${ssm:/dc-zoom-meeting-logger/${self:provider.stage}/GOOGLE_AUTH_JSON}'
     GOOGLE_SHEET_NAME: ${self:custom.sheetName}
-    MEETINGS_TABLE: ${self:custom.tableName}
     MEETINGS_SNS_TOPIC: ${self:custom.topicName}
     MEETINGS_SNS_ARN: { "Fn::Join" : ["", ["arn:aws:sns:${self:provider.region}:", { "Ref" : "AWS::AccountId" }, ":${self:custom.topicName}" ] ]  }
   iamRoleStatements:
@@ -38,16 +37,6 @@ provider:
         - 's3:ListObjects'
         - 's3:GetObject'
       Resource: 'arn:aws:s3:::dcl-lambdas/dc-zoom-meeting-logger/*'
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource:
-        - { "Fn::GetAtt": ["DCZoomMeetingLoggerDynamoDBTable", "Arn" ] }
     - Effect: Allow
       Action:
         - "ssm:GetParameters"
@@ -92,25 +81,11 @@ custom:
     domainName: '${self:custom.domains.${self:provider.stage}}'
     stage: '${self:provider.stage}'
     createRoute53Record: true
-  tableName: 'dc-zoom-meeting-logger-table-${self:provider.stage}'
   topicName: 'dc-zoom-meeting-logger-topic-${self:provider.stage}'
   sheetName: 'dc-zoom-meeting-logger-${self:provider.stage}'
 
 resources:
   Resources:
-    DCZoomMeetingLoggerDynamoDBTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        AttributeDefinitions:
-          -
-            AttributeName: meetingId
-            AttributeType: S
-        KeySchema:
-          -
-            AttributeName: meetingId
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
-        TableName: ${self:custom.tableName}
     DCZoomMeetingLoggerTopic:
       Type: AWS::SNS::Topic
       Properties:

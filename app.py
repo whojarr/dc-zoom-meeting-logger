@@ -6,7 +6,6 @@ from flask import Flask, request
 app = Flask(__name__)
 
 ZOOM_VARIFICATION_TOKEN = os.environ['ZOOM_VARIFICATION_TOKEN']
-MEETINGS_TABLE = os.environ['MEETINGS_TABLE']
 MEETINGS_SNS_TOPIC = os.environ['MEETINGS_SNS_TOPIC']
 MEETINGS_SNS_ARN = os.environ['MEETINGS_SNS_ARN']
 
