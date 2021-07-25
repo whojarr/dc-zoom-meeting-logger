@@ -54,62 +54,6 @@ def event_meeting(event):
                 yield result
 
 
-def meeting_participant_joined(meeting):
-    print(meeting)
-    google_sheet_write_participant(meeting)
-    """
-    {
-        "account_id":"mQ6z7LM9R4yuzZ64Iju6rA",
-        "object":{
-            "uuid":"cfRfxCYbRoeZJ5c+/UDghQ==",
-            "participant":{
-                "user_id":"16778240",
-                "user_name":"David Hunter",
-                "id":"AbDxB4btT82PZ0HOCA2ecg",
-                "join_time":"2021-07-25T02:36:54Z",
-                "email":"dhunter@digitalcreation.co.nz"
-            },
-            "id":"96349068012",
-            "type":3,
-            "topic":"Groovy Participation Group",
-            "host_id":"AbDxB4btT82PZ0HOCA2ecg",
-            "duration":60,
-            "start_time":"2021-07-25T02:36:54Z",
-            "timezone":"Pacific/Auckland"
-        }
-    }
-    """
-
-
-def meeting_participant_left(meeting):
-    print(meeting)
-    google_sheet_write_participant(meeting)
-    """
-    {
-        "account_id":"mQ6z7LM9R4yuzZ64Iju6rA",
-        "object":{
-            "uuid":"cfRfxCYbRoeZJ5c+/UDghQ==",
-            "participant":{
-                "leave_time":"2021-07-25T02:38:38Z",
-                "user_id":"16778240",
-                "user_name":"David Hunter",
-                "registrant_id":"",
-                "participant_user_id":"",
-                "id":"AbDxB4btT82PZ0HOCA2ecg",
-                "email":"dhunter@digitalcreation.co.nz"
-            },
-            "id":"96349068012",
-            "type":3,
-            "topic":"Groovy Participation Group",
-            "host_id":"AbDxB4btT82PZ0HOCA2ecg",
-            "duration":60,
-            "start_time":"2021-07-25T02:36:54Z",
-            "timezone":"Pacific/Auckland"
-        }
-    }
-    """
-
-
 def handler(event, context):
 
     for meeting in event_meeting(event):
