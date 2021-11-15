@@ -62,12 +62,14 @@ def googlesheet_update(sheet_name, worksheet_name, row):
                 current_sheet = worksheet
         if not current_sheet:
             current_sheet = sh.add_worksheet(title=worksheet_name, rows="100", cols="20")
+            headings = ["Meeting","Status","Timezone","Start Date","End Date","Duration","Account ID","Host ID","Subject","Type","ID","UUID","User Name","Email","Joined Date","Left Date","User ID","Participant ID"]
+            current_sheet.append_row(headings, value_input_option='USER_ENTERED', insert_data_option=None, table_range='A1')
 
     except gspread.exceptions.SpreadsheetNotFound:
         return "sheet not found. ensure exists and is shared correctly"
 
     """ create a new row and insert it """
-    current_sheet.append_row(row, value_input_option='USER_ENTERED', insert_data_option=None, table_range=None)
+    current_sheet.append_row(row, value_input_option='USER_ENTERED', insert_data_option=None, table_range='A1')
 
     return current_sheet, row
 
