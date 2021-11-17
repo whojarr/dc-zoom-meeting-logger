@@ -1,3 +1,5 @@
+org: dhunter
+app: dc-zoom-meeting-logger
 service: dc-zoom-meeting-logger
 plugins:
   - serverless-python-requirements
