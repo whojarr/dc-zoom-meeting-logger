@@ -28,8 +28,6 @@ App Name: dc-zoom-meeting-logger
 
 Information: In this page, you must provide some basic information about your app including a short description about your app, your company’s name and your contact information.
 
-<img src="zoom_basic_info.png" alt="alt text" width="400"/>
-
 <img src="zoom_contact_info.png" alt="alt text" width="400"/>
 
 ## Set App Features
