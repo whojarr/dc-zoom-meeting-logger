@@ -80,6 +80,7 @@ custom:
     dev: dc-zoom-meeting-logger-dev.pauanui.nz
     aeronet: dc-zoom-meeting-logger-aeronet.pauanui.nz
     lmtd: dc-zoom-meeting-logger-lmtd.pauanui.nz
+    alt: dc-zoom-meeting-logger-alt.pauanui.nz
   customDomain:
     basePath: ''
     domainName: '${self:custom.domains.${self:provider.stage}}'
