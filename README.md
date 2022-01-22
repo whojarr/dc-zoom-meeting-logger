@@ -29,6 +29,7 @@ This project used the serverless framework along with yarn and poetry.
 
 You will requie an AWS Account, Zoom Account and Google Account.
 
+See the docs in docs/README.md for setup
 
 ### Prerequisites
 
@@ -62,12 +63,18 @@ Install all the required node and python packages.
    poetry install
    ```
 4. update the serverless.yml domain details
-5. add the credentials required in AWS Paramter Store
+5. add the required AWS parameter store values
+
+   /dc-zoom-meeting-logger/{stage}/ZOOM_VARIFICATION_TOKEN
+
+   /dc-zoom-meeting-logger/{stage}/GOOGLE_AUTH_JSON
+
+6. add the credentials required in AWS Paramter Store
    ```sh
-   sls create_domain
+   sls create_domain -s {stage}
    ```
    
-6. sls deploy (to deploy to your default aws account)
+7. sls deploy (to deploy to your default aws account)
    ```sh
-   sls deploy
+   sls deploy -s {stage}
    ```
